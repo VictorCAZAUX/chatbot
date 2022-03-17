@@ -4,6 +4,8 @@ const MongoClient = require("mongodb").MongoClient;
 const MONGODB_URI = 'mongodb+srv://victor:T7zXLcpmf6p73vcO@Cluster0.miqnt.mongodb.net/clear-fashion?retryWrites=true&w=majority';
 const MONGODB_DB_NAME = 'Cluster0';
 
+const XRegExp = require('xregexp');
+
 
 
 // Import botkit package
@@ -21,10 +23,7 @@ controller.spawn({
 }).startRTM();
 
 
-var answer = "";
-let item = "test";
-var query = "";
-const produits = "";
+
 
 
 
@@ -37,21 +36,23 @@ function sleep(delay) {
 controller.hears(['Hello','Hi','Hey'],['ambient', 'direct_mention', 'mention'], function(bot, message) {
   
   
+  
+  
 
   bot.startConversation(message, function(err, convo) {
 
     convo.say('Hi, im bot Artus and I will help you. I have a large database of ethical clothes that might interest you. 👗');
     convo.addQuestion('Would you like to buy clothes ? To create an outfit based on your budget ? To see some products that may fit you? 💁‍♀️',function(response,convo) {
     
-
+     
      
       convo.next();
-      if(response.text=="buy")
+      if (XRegExp.test(response.text, XRegExp("\\bbuy\\b", "i")))
       {
         convo.say("Alright, let's see what we have in stock. 👩‍💻")
         convo.addQuestion('What item would you like to buy ? Pants, shirt, sweats ? 🕵️',function(response2,convo) {
           convo.next();
-          if(response2.text == "pants")
+          if (XRegExp.test(response2.text, XRegExp("\\b(pants|trousers|boxers)\\b", "i")))
           {
             
               bot.reply(message,"What about this pretty piece :");
@@ -73,7 +74,7 @@ controller.hears(['Hello','Hi','Hey'],['ambient', 'direct_mention', 'mention'], 
               sleep(500);
               convo.addQuestion("Do you like it ?",function(response7,convo) {
                 convo.next();
-                if(response7.text == "no")
+                if (XRegExp.test(response7.text, XRegExp("\\b(nah|no|nein)\\b", "i")))
               {
               bot.reply(message,"What about this pretty piece :");
               sleep(200);
@@ -94,7 +95,7 @@ controller.hears(['Hello','Hi','Hey'],['ambient', 'direct_mention', 'mention'], 
   
               convo.addQuestion("Do you like it ?",function(response8,convo) {
                 convo.next();
-                if(response8.text == "yes")
+                if (XRegExp.test(response8.text, XRegExp("\\b(yes|yeah|yep)\\b", "i")))
                 {
                   convo.say("Yes, I think it looks great on you! 🥰")
                 }

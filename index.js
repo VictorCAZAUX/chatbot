@@ -33,9 +33,11 @@ function sleep(delay) {
 }
 
 
+var boolean1 = false;
 
 
-controller.hears(['Hello','Hi','Hey'],['ambient', 'direct_mention', 'mention'], function(bot, message) {
+
+controller.hears(['Hello','Hi','Hey','Help'],['ambient', 'direct_mention', 'mention'], function(bot, message) {
   
   
   
@@ -43,16 +45,18 @@ controller.hears(['Hello','Hi','Hey'],['ambient', 'direct_mention', 'mention'], 
 
   bot.startConversation(message, function(err, convo) {
 
-    convo.say('Hi, im bot Artus and I will help you. I have a large database of ethical clothes that might interest you. 👗');
+    convo.say('Hi, im bot Caroline and I will help you. I have a large database of ethical clothes that might interest you. 👗');
     
-
+    
     convo.addQuestion('Would you like to buy clothes ? To see some products that may fit you? 💁‍♀️',function(response,convo) {
     
      
      
       convo.next();
-      if (XRegExp.test(response.text, XRegExp("\\bbuy\\b", "i")))
+      
+        if (XRegExp.test(response.text, XRegExp("\\bbuy\\b", "i")))
       {
+        boolean1 = true;
         convo.say("Alright, let's see what we have in stock. 👩‍💻")
         convo.addQuestion('What item would you like to buy ? Pants, shirt, sweats ? 🕵️',function(response2,convo) {
           convo.next();
@@ -73,15 +77,12 @@ controller.hears(['Hello','Hi','Hey'],['ambient', 'direct_mention', 'mention'], 
               const pants3 =  produits[0].photo;
               const pants4 =  produits[0].price;
               bot.reply(message,"The price of this item is : " + pants4 + " 💵");
-
               bot.reply(message,"The item name is : " + pants + " 👖 " );
-              
-              
               bot.reply(message,"Here is the item link : " +pants2 + " 🌐");
               bot.reply(message,"Here is the link of the picture  : " + pants3 + " 🛸");
-
               
               }
+  
   
               GetProducts();
               sleep(500);
@@ -101,7 +102,7 @@ controller.hears(['Hello','Hi','Hey'],['ambient', 'direct_mention', 'mention'], 
               const pants =  produits[3].name;
               const pants2 =  produits[3].link;
               const pants3 =  produits[3].photo;
-              const pants4 =  produits[0].price;
+              const pants4 =  produits[3].price;
               bot.reply(message,"The price of this item is : " + pants4 + " 💵");
               bot.reply(message,"The item name is : " + pants + " 👖 " );
               bot.reply(message,"Here is the item link : " +pants2 + " 🌐");
@@ -261,6 +262,7 @@ controller.hears(['Hello','Hi','Hey'],['ambient', 'direct_mention', 'mention'], 
       
       if (XRegExp.test(response.text, XRegExp("\\bsee\\b", "i")))
       {
+        boolean1 = true;
           type = "";
           
          
@@ -359,8 +361,14 @@ controller.hears(['Hello','Hi','Hey'],['ambient', 'direct_mention', 'mention'], 
           });
 
           
+
+          
           
       }
+     
+
+      
+    
       
 
     },{},'default');

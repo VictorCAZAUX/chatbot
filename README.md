@@ -13,8 +13,8 @@ dotenv: ^16.0.0
 mongodb: ^4.4.1
 xregexp: ^5.1.0
 
-#### 
-How to use : 
+#### How to use : 
+
 
 To start using Caroline, you have to call her because she is at the other end of the store. So start by saying "Hello" or "Hi" to call her.
 Caroline offers you if you want to buy or consult clothes. Answer her according to your choice.

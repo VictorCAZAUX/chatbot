@@ -32,8 +32,12 @@ function sleep(delay) {
   while (new Date().getTime() < start + delay);
 }
 
+function getRandomInt(max) {
+  return Math.floor(Math.random() * max);
+}
 
-var boolean1 = false;
+let tabitem = [];
+let favcolor = [];
 
 
 
@@ -56,15 +60,16 @@ controller.hears(['Hello','Hi','Hey','Help'],['ambient', 'direct_mention', 'ment
       
         if (XRegExp.test(response.text, XRegExp("\\bbuy\\b", "i")))
       {
-        boolean1 = true;
+       
         convo.say("Alright, let's see what we have in stock. 👩‍💻")
+        
         convo.addQuestion('What item would you like to buy ? Pants, shirt, sweats ? 🕵️',function(response2,convo) {
           convo.next();
           if (XRegExp.test(response2.text, XRegExp("\\b(pants|trousers|boxers)\\b", "i")))
           {
             
               bot.reply(message,"What about this pretty piece :");
-              
+              tabitem.push("pants")
   
               const GetProducts = async() =>
               {
@@ -72,10 +77,12 @@ controller.hears(['Hello','Hi','Hey','Help'],['ambient', 'direct_mention', 'ment
               const db =  client.db(MONGODB_DB_NAME);
               const collection = db.collection('products');
               const produits = await collection.find({brand : "dedicated","name":{$regex:"Pants"}}).toArray();
-              const pants =  produits[0].name;
-              const pants2 =  produits[0].link;
-              const pants3 =  produits[0].photo;
-              const pants4 =  produits[0].price;
+              let nb = produits.length;
+              let nb2 = getRandomInt(nb);
+              const pants =  produits[nb2].name;
+              const pants2 =  produits[nb2].link;
+              const pants3 =  produits[nb2].photo;
+              const pants4 =  produits[nb2].price;
               bot.reply(message,"The price of this item is : " + pants4 + " 💵");
               bot.reply(message,"The item name is : " + pants + " 👖 " );
               bot.reply(message,"Here is the item link : " +pants2 + " 🌐");
@@ -86,6 +93,7 @@ controller.hears(['Hello','Hi','Hey','Help'],['ambient', 'direct_mention', 'ment
   
               GetProducts();
               sleep(500);
+              
               convo.addQuestion("Do you like it ?",function(response7,convo) {
                 convo.next();
                 if (XRegExp.test(response7.text, XRegExp("\\b(nah|no|nein)\\b", "i")))
@@ -99,10 +107,12 @@ controller.hears(['Hello','Hi','Hey','Help'],['ambient', 'direct_mention', 'ment
               const db =  client.db(MONGODB_DB_NAME);
               const collection = db.collection('products');
               const produits = await collection.find({brand : "dedicated","name":{$regex:"Pants"}}).toArray();
-              const pants =  produits[3].name;
-              const pants2 =  produits[3].link;
-              const pants3 =  produits[3].photo;
-              const pants4 =  produits[3].price;
+              let nb = produits.length;
+              let nb2 = getRandomInt(nb);
+              const pants =  produits[nb2].name;
+              const pants2 =  produits[nb2].link;
+              const pants3 =  produits[nb2].photo;
+              const pants4 =  produits[nb2].price;
               bot.reply(message,"The price of this item is : " + pants4 + " 💵");
               bot.reply(message,"The item name is : " + pants + " 👖 " );
               bot.reply(message,"Here is the item link : " +pants2 + " 🌐");
@@ -134,7 +144,7 @@ controller.hears(['Hello','Hi','Hey','Help'],['ambient', 'direct_mention', 'ment
           {
             
             bot.reply(message,"What about this pretty piece :");
-              
+            tabitem.push("shirt")
   
               const GetProducts = async() =>
               {
@@ -142,10 +152,12 @@ controller.hears(['Hello','Hi','Hey','Help'],['ambient', 'direct_mention', 'ment
               const db =  client.db(MONGODB_DB_NAME);
               const collection = db.collection('products');
               const produits = await collection.find({brand : "dedicated","name":{$regex:"T-shirt"}}).toArray();
-              const shirt =  produits[0].name;
-              const shirt2 =  produits[0].link;
-              const shirt3 =  produits[0].photo;
-              const shirt4 =  produits[0].price;
+              let nb = produits.length;
+              let nb2 = getRandomInt(nb);
+              const shirt =  produits[nb2].name;
+              const shirt2 =  produits[nb2].link;
+              const shirt3 =  produits[nb2].photo;
+              const shirt4 =  produits[nb2].price;
               bot.reply(message,"The price of this item is : " + shirt4 + " 💵");
               bot.reply(message,"The item name is : " + shirt + " 👕 " );
               bot.reply(message,"Here is the item link : " +shirt2 + " 🌐");
@@ -167,10 +179,13 @@ controller.hears(['Hello','Hi','Hey','Help'],['ambient', 'direct_mention', 'ment
               const db =  client.db(MONGODB_DB_NAME);
               const collection = db.collection('products');
               const produits = await collection.find({brand : "dedicated","name":{$regex:"T-shirt"}}).toArray();
-              const shirt =  produits[3].name;
-              const shirt2 =  produits[3].link;
-              const shirt3 =  produits[3].photo;
-              const shirt4 =  produits[3].price;
+              let nb = produits.length;
+              let nb2 = getRandomInt(nb);
+              const shirt =  produits[nb2].name;
+              const shirt2 =  produits[nb2].link;
+              const shirt3 =  produits[nb2].photo;
+              const shirt4 =  produits[nb2].price;
+              
               bot.reply(message,"The price of this item is : " + shirt4 + " 💵");
               bot.reply(message,"The item name is : " + shirt + " 👕 " );
               bot.reply(message,"Here is the item link : " +shirt2 + " 🌐");
@@ -193,11 +208,12 @@ controller.hears(['Hello','Hi','Hey','Help'],['ambient', 'direct_mention', 'ment
                });
             
           }
+          
           if (XRegExp.test(response2.text, XRegExp("\\b(Sweatshirt|sweat|sweaters)\\b", "i")))
           {
             
             bot.reply(message,"What about this pretty piece :");
-              
+            tabitem.push("sweatshirt")  
   
               const GetProducts = async() =>
               {
@@ -205,10 +221,12 @@ controller.hears(['Hello','Hi','Hey','Help'],['ambient', 'direct_mention', 'ment
               const db =  client.db(MONGODB_DB_NAME);
               const collection = db.collection('products');
               const produits = await collection.find({brand : "dedicated","name":{$regex:"Sweatshirt"}}).toArray();
-              const sweat =  produits[0].name;
-              const sweat2 =  produits[0].link;
-              const sweat3 =  produits[0].photo;
-              const sweat4 =  produits[0].price;
+              let nb = produits.length;
+              let nb2 = getRandomInt(nb);
+              const sweat =  produits[nb2].name;
+              const sweat2 =  produits[nb2].link;
+              const sweat3 =  produits[nb2].photo;
+              const sweat4 =  produits[nb2].price;
               bot.reply(message,"The price of this item is : " + sweat4 + " 💵");
               bot.reply(message,"The item name is : " + sweat + " 👕 " );
               bot.reply(message,"Here is the item link : " +sweat2 + " 🌐");
@@ -230,10 +248,12 @@ controller.hears(['Hello','Hi','Hey','Help'],['ambient', 'direct_mention', 'ment
               const db =  client.db(MONGODB_DB_NAME);
               const collection = db.collection('products');
               const produits = await collection.find({brand : "dedicated","name":{$regex:"Sweatshirt"}}).toArray();
-              const sweat =  produits[3].name;
-              const sweat2 =  produits[3].link;
-              const sweat3 =  produits[3].photo;
-              const sweat4 =  produits[3].price;
+              let nb = produits.length;
+              let nb2 = getRandomInt(nb);
+              const sweat =  produits[nb2].name;
+              const sweat2 =  produits[nb2].link;
+              const sweat3 =  produits[nb2].photo;
+              const sweat4 =  produits[nb2].price;
               bot.reply(message,"The price of this item is : " + sweat4 + " 💵");
               bot.reply(message,"The item name is : " + sweat + " 👕 " );
               bot.reply(message,"Here is the item link : " +sweat2 + " 🌐");
@@ -248,7 +268,7 @@ controller.hears(['Hello','Hi','Hey','Help'],['ambient', 'direct_mention', 'ment
                 {
                   convo.say("Yes, I think it looks great on you! 🥰")
                 }
-
+                convo.next();
 
                });
             }
@@ -256,6 +276,8 @@ controller.hears(['Hello','Hi','Hey','Help'],['ambient', 'direct_mention', 'ment
                });
             
           }
+
+          convo.next();
 
         });
       }
@@ -273,26 +295,32 @@ controller.hears(['Hello','Hi','Hey','Help'],['ambient', 'direct_mention', 'ment
               if (XRegExp.test(response4.text, XRegExp("\\b(shirt|T-shirt|Tshirt|shirts)\\b", "i")))
               {
                 type = "T-shirt"
+                tabitem.push("shirt")  
               }
               if (XRegExp.test(response4.text, XRegExp("\\b(sweat|sweater|sweatshirt)\\b", "i")))
               {
                 type = "Sweatshirt"
+                tabitem.push("sweatshirt")  
               }
               if (XRegExp.test(response4.text, XRegExp("\\b(pants|trousers|boxer)\\b", "i")))
               {
                 type = "Pants"
+                tabitem.push("pants")  
               }
               if (XRegExp.test(response4.text, XRegExp("\\b(hoodie)\\b", "i")))
               {
                 type = "Hoodie"
+                tabitem.push("hoodie")  
               }
               if (XRegExp.test(response4.text, XRegExp("\\b(jacket)\\b", "i")))
               {
                 type = "Jacket"
+                tabitem.push("jacket")  
               }
               if (XRegExp.test(response4.text, XRegExp("\\b(shorts|short)\\b", "i")))
               {
                 type = "Shorts"
+                tabitem.push("shorts") 
               }
             });
           
@@ -302,6 +330,7 @@ controller.hears(['Hello','Hi','Hey','Help'],['ambient', 'direct_mention', 'ment
             if (XRegExp.test(response6.text, XRegExp("\\b(blue|Blue|navy)\\b", "i")))
               {
                 color = "Blue"
+                
               }
             if (XRegExp.test(response6.text, XRegExp("\\b(red|Red)\\b", "i")))
               {
@@ -324,7 +353,7 @@ controller.hears(['Hello','Hi','Hey','Help'],['ambient', 'direct_mention', 'ment
                 color = "Purple"
               }
 
-              
+              favcolor.push(color)
               query = type + " " + color;
               console.log(query)
               const GetProducts = async() =>
@@ -335,9 +364,11 @@ controller.hears(['Hello','Hi','Hey','Help'],['ambient', 'direct_mention', 'ment
               const produits = await collection.find({$and:[{"name":{$regex:type}},{"name":{$regex:color}}]}).toArray();
               if(produits != null)
               {
-                const item =  produits[0].name;
-                const item2 =  produits[0].link;
-                const item3 =  produits[0].photo;
+                let nb = produits.length;
+                let nb2 = getRandomInt(nb);
+                const item =  produits[nb2].name;
+                const item2 =  produits[nb2].link;
+                const item3 =  produits[nb2].photo;
                 bot.reply(message,"The item name is : " + item + " 💅 " );
                 bot.reply(message,"Here is the item link : " +item2 + " 🌐");
                 bot.reply(message,"Here is the link of the picture  : " + item3 + " 🛸");
@@ -366,8 +397,41 @@ controller.hears(['Hello','Hi','Hey','Help'],['ambient', 'direct_mention', 'ment
           
       }
      
+      console.log(tabitem[0])
+      console.log(favcolor[0])
+      convo.addQuestion("I saved some information about you, do you want to see the item I think is perfect for you ?",function(response11,convo) {
+        convo.next();
+        if (XRegExp.test(response11.text, XRegExp("\\b(yes|yeah)\\b", "i")))
+        {
+          const GetProducts = async() =>
+              {
+              const client = await MongoClient.connect(MONGODB_URI, {'useNewUrlParser': true});
+              const db =  client.db(MONGODB_DB_NAME);
+              const collection = db.collection('products');
+              const produits = await collection.find({$and:[{"name":{$regex:tabitem[0]}},{"name":{$regex:favcolor[0]}}]}).toArray();
+              if(produits != null)
+              {
+                let nb = produits.length;
+                let nb2 = getRandomInt(nb);
+                const item =  produits[nb2].name;
+                const item2 =  produits[nb2].link;
+                const item3 =  produits[nb2].photo;
+                bot.reply(message,"The item name is : " + item + " 💅 " );
+                bot.reply(message,"Here is the item link : " +item2 + " 🌐");
+                bot.reply(message,"Here is the link of the picture  : " + item3 + " 🛸");
+                bot.reply(message,"I hope you liked my services! See you soon!");
+              }
+              
+              
+              }
+    
+                GetProducts();
 
+        }
       
+      
+      
+      })
     
       
 
